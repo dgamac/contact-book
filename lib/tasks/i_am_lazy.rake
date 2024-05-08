@@ -5,6 +5,10 @@ task(:world) do
   pp "World!"
 end
 task(:sample_contacts => :environment) do
+  if Rails.env.development?
+    Contact.destroy_all
+  end
+
   200.times do
     x = Contact.new
 
@@ -21,7 +25,7 @@ task(:sample_contacts => :environment) do
 
     x.save
   end
-  
+
   x = Contact.new
   x.first_name = "Minnie"
   x.last_name = "Mouse"
